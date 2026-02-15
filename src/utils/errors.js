@@ -1,5 +1,5 @@
 /**
- * Custom error types for admin-mcp.
+ * Custom error types and MCP response formatters for admin-mcp.
  */
 
 export class CutiEAPIError extends Error {
@@ -21,4 +21,29 @@ export class AuthError extends Error {
     super(message);
     this.name = "AuthError";
   }
+}
+
+/**
+ * Format an error into an MCP tool response.
+ * @param {Error} error
+ * @returns {{ content: Array<{type: string, text: string}>, isError: true }}
+ */
+export function formatError(error) {
+  return {
+    content: [{ type: "text", text: `Error: ${error.message}` }],
+    isError: true,
+  };
+}
+
+/**
+ * Format data into a successful MCP tool response.
+ * @param {*} data
+ * @returns {{ content: Array<{type: string, text: string}> }}
+ */
+export function formatSuccess(data) {
+  return {
+    content: [
+      { type: "text", text: JSON.stringify(data, null, 2) },
+    ],
+  };
 }

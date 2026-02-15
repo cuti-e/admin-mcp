@@ -10,6 +10,9 @@ export default [
         setTimeout: "readonly",
         clearTimeout: "readonly",
         URL: "readonly",
+        URLSearchParams: "readonly",
+        fetch: "readonly",
+        globalThis: "readonly",
       },
     },
     rules: {
