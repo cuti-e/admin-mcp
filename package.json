@@ -1,0 +1,32 @@
+{
+  "name": "@cuti-e/admin-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for managing Cuti-E conversations, messages, tags, and analytics",
+  "main": "src/index.js",
+  "bin": {
+    "admin-mcp": "src/index.js"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint ."
+  },
+  "keywords": [
+    "mcp",
+    "cuti-e",
+    "admin",
+    "conversations",
+    "feedback"
+  ],
+  "author": "Invotek AS",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.26.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.0.0",
+    "vitest": "^3.0.0"
+  }
+}
