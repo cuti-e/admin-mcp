@@ -55,9 +55,21 @@ export const tagTools = [
  * Handle a tag tool call.
  * @param {string} name - Tool name
  * @param {Object} args - Tool arguments
- * @param {import('../api/client.js').CutiEClient} _client - API client
+ * @param {import('../api/client.js').CutiEClient} client - API client
  */
-export async function handleTagTool(name, _args, _client) {
-  // TODO: Implement in issue #3
-  throw new Error(`Tool ${name} not yet implemented - see issue #3`);
+export async function handleTagTool(name, args, client) {
+  switch (name) {
+    case "list_tags":
+      return client.get("/v1/tags");
+    case "add_tag":
+      return client.post(`/v1/conversations/${args.conversation_id}/tags`, {
+        tag: args.tag,
+      });
+    case "remove_tag":
+      return client.delete(
+        `/v1/conversations/${args.conversation_id}/tags/${encodeURIComponent(args.tag)}`
+      );
+    default:
+      throw new Error(`Unknown tag tool: ${name}`);
+  }
 }
