@@ -96,9 +96,32 @@ export const conversationTools = [
  * Handle a conversation tool call.
  * @param {string} name - Tool name
  * @param {Object} args - Tool arguments
- * @param {import('../api/client.js').CutiEClient} _client - API client
+ * @param {import('../api/client.js').CutiEClient} client - API client
  */
-export async function handleConversationTool(name, _args, _client) {
-  // TODO: Implement in issue #3
-  throw new Error(`Tool ${name} not yet implemented - see issue #3`);
+export async function handleConversationTool(name, args, client) {
+  switch (name) {
+    case "list_conversations": {
+      const params = {};
+      if (args.status) params.status = args.status;
+      if (args.category) params.category = args.category;
+      if (args.limit !== undefined) params.limit = args.limit;
+      if (args.offset !== undefined) params.offset = args.offset;
+      return client.get("/v1/conversations", params);
+    }
+    case "get_conversation":
+      return client.get(`/v1/conversations/${args.conversation_id}`);
+    case "update_conversation": {
+      const body = {};
+      if (args.status) body.status = args.status;
+      if (args.priority) body.priority = args.priority;
+      if (args.category) body.category = args.category;
+      return client.patch(`/v1/conversations/${args.conversation_id}`, body);
+    }
+    case "assign_conversation":
+      return client.post(`/v1/conversations/${args.conversation_id}/assign`, {
+        admin_id: args.admin_id || null,
+      });
+    default:
+      throw new Error(`Unknown conversation tool: ${name}`);
+  }
 }

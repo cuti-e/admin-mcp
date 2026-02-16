@@ -51,9 +51,21 @@ export const messageTools = [
  * Handle a message tool call.
  * @param {string} name - Tool name
  * @param {Object} args - Tool arguments
- * @param {import('../api/client.js').CutiEClient} _client - API client
+ * @param {import('../api/client.js').CutiEClient} client - API client
  */
-export async function handleMessageTool(name, _args, _client) {
-  // TODO: Implement in issue #3
-  throw new Error(`Tool ${name} not yet implemented - see issue #3`);
+export async function handleMessageTool(name, args, client) {
+  switch (name) {
+    case "send_message":
+      return client.post(`/v1/conversations/${args.conversation_id}/messages`, {
+        message: args.message,
+        internal_note: args.internal_note || false,
+      });
+    case "list_messages": {
+      const params = {};
+      if (args.limit !== undefined) params.limit = args.limit;
+      return client.get(`/v1/conversations/${args.conversation_id}/messages`, params);
+    }
+    default:
+      throw new Error(`Unknown message tool: ${name}`);
+  }
 }

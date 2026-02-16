@@ -63,9 +63,23 @@ export const cannedResponseTools = [
  * Handle a canned response tool call.
  * @param {string} name - Tool name
  * @param {Object} args - Tool arguments
- * @param {import('../api/client.js').CutiEClient} _client - API client
+ * @param {import('../api/client.js').CutiEClient} client - API client
  */
-export async function handleCannedResponseTool(name, _args, _client) {
-  // TODO: Implement in issue #3
-  throw new Error(`Tool ${name} not yet implemented - see issue #3`);
+export async function handleCannedResponseTool(name, args, client) {
+  switch (name) {
+    case "list_canned_responses":
+      return client.get("/v1/canned-responses");
+    case "create_canned_response": {
+      const body = { title: args.title, content: args.content };
+      if (args.category) body.category = args.category;
+      return client.post("/v1/canned-responses", body);
+    }
+    case "use_canned_response":
+      return client.post(
+        `/v1/conversations/${args.conversation_id}/canned-responses/${args.canned_response_id}/use`,
+        { variables: args.variables || {} }
+      );
+    default:
+      throw new Error(`Unknown canned response tool: ${name}`);
+  }
 }

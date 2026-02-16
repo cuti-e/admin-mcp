@@ -37,9 +37,21 @@ export const analyticsTools = [
  * Handle an analytics tool call.
  * @param {string} name - Tool name
  * @param {Object} args - Tool arguments
- * @param {import('../api/client.js').CutiEClient} _client - API client
+ * @param {import('../api/client.js').CutiEClient} client - API client
  */
-export async function handleAnalyticsTool(name, _args, _client) {
-  // TODO: Implement in issue #3
-  throw new Error(`Tool ${name} not yet implemented - see issue #3`);
+export async function handleAnalyticsTool(name, args, client) {
+  switch (name) {
+    case "get_conversation_stats": {
+      const params = {};
+      if (args.days !== undefined) params.days = args.days;
+      return client.get("/v1/analytics/conversation-stats", params);
+    }
+    case "get_response_times": {
+      const params = {};
+      if (args.days !== undefined) params.days = args.days;
+      return client.get("/v1/analytics/response-times", params);
+    }
+    default:
+      throw new Error(`Unknown analytics tool: ${name}`);
+  }
 }
