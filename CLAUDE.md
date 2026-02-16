@@ -44,11 +44,17 @@ src/
 ## Development
 
 ```bash
-npm install     # Install dependencies
-npm run lint    # ESLint
-npm test        # Vitest
-npm start       # Run MCP server
+npm install         # Install dependencies
+npm run lint        # ESLint
+npm test            # Unit tests (excludes E2E)
+npm run test:e2e    # E2E tests (requires API credentials)
+npm run test:all    # All tests
+npm start           # Run MCP server
 ```
+
+### E2E Tests
+
+E2E tests live in `test/e2e/` and run against the real Cuti-E API. They require `CUTIE_API_URL`, `CUTIE_CLIENT_ID`, and `CUTIE_CLIENT_SECRET` env vars. Tests are auto-skipped when credentials are not set (safe for CI).
 
 ## CI/CD
 
