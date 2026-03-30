@@ -25,10 +25,10 @@
   "author": "Invotek AS",
   "license": "MIT",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.27.1"
+    "@modelcontextprotocol/sdk": "^1.28.0"
   },
   "devDependencies": {
     "eslint": "^10.1.0",
-    "vitest": "^4.1.0"
+    "vitest": "^4.1.2"
   }
 }
