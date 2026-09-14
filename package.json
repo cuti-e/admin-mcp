@@ -28,7 +28,7 @@
     "@modelcontextprotocol/sdk": "^1.30.0"
   },
   "devDependencies": {
-    "eslint": "^10.9.1",
+    "eslint": "^10.10.0",
     "vitest": "^5.0.0"
   }
 }
