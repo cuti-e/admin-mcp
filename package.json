@@ -29,6 +29,6 @@
   },
   "devDependencies": {
     "eslint": "^10.10.0",
-    "vitest": "^5.0.0"
+    "vitest": "^5.0.1"
   }
 }
